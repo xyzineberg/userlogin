@@ -1,0 +1,57 @@
+from tkinter import *
+from customtkinter import *
+
+root = CTk()
+root.geometry("500x500+10+10")
+root.title("Data Bank")
+set_appearance_mode('dark')
+set_default_color_theme('green')
+
+v1 = StringVar()
+v2 = StringVar()
+
+count  = 0
+
+def f1():
+    global count
+    ufile = open("Users.txt","r")
+    for aline in ufile:
+        items = aline.split()
+        dataline = items[0] + ' ' + items[1]
+        login = v1.get() + ' ' + v2.get()
+        print('D' , dataline)
+        print('L' , login)
+        if dataline == login:
+            
+            top = CTkToplevel()
+            top.geometry("300x300+220+50")
+            top.title("Your Page")
+
+            L11 = CTkLabel(top,text='Succesful Login').pack(anchor='center',padx=2,pady=5)
+            top.mainloop()
+
+            print('success')
+        else:
+            pass
+            
+            
+            
+        
+
+    
+def f2():
+    ifile = open('Users.txt','a')
+    inputt = v1.get() + ' ' + v2.get()
+    ifile.write(inputt+'\n')
+    ifile.close()
+    v1.set('')
+    v2.set('')
+    
+    
+L1 = CTkLabel(root,text='Username').pack(anchor='center',padx=2,pady=5)
+E1 = CTkEntry(root,textvariable=v1).pack(anchor='center',padx=2,pady=5)
+L2 = CTkLabel(root,text='Password').pack(anchor='center',padx=2,pady=5)
+E2 = CTkEntry(root,textvariable=v2).pack(anchor='center',padx=2,pady=5)
+B1 = CTkButton(root,text='Login',command=f1,width=100,height=100).pack(anchor='center',padx=2,pady=5)
+B2 = CTkButton(root,text='Create Account',command=f2,width=75,height=50).pack(anchor='center',padx=2,pady=5)
+root.mainloop()
